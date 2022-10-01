@@ -41,6 +41,20 @@ right ith node = 2 * (i + 1);
 
 parent of a note = (i - 1) / 2
 
+Binary search trees are the most common kind of trees, intrinsically associated with ordering. There is no reason to keep our branching factor fixed and equal to 2. **On the contrary**, **we can use any value greater than 2**, and use the same array representation for the heap.
+For a branching factor 3: 
+left ith node = (3 * i) + 1;
+center ith node = (3 * i) + 2;
+right ith node = 3 * (i + 1);
+
+parent of a note = (i - 1) / 3;
+
+For a d-ary heap, where the branching factor is the integer D > 1 , our three heap invariants become
+
+1. Every node has at most D children.
+2. The heap tree is complete, with all the levels that are left-adjusted. That is, the i-th sub-tree has a height at most equal to its siblings on its left (from 0 to i-1,1 < i <= D).
+3. Every node holds the highest priority in the subtree rooted at that node.
+
 It might seem counterintuitive that we use an array to represent a tree. After all, trees were invented to overcome array limitations. This is generally true, and trees have a number of advantages: they are **more flexible** and, **if balanced**, allow for better performance, **with worst-case logarithmic search, insertion, and delete**.
 
 **As with any data structure that uses pointers** (lists, graphs, trees, and so on) we have a memory **overhead in comparison to arrays**. While with the latter we just need to reserve space for the data (plus maybe, depending on the implementation details, some constant space for pointers and the node structure itself), every tree node requires extra space for the pointers to its children and possibly to its parent.
