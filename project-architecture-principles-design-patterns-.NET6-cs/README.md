@@ -20,9 +20,7 @@ From an abstract definition, design pattern is a proven technique that can be us
 
 **Anti-patterns** is a proven flawed techniques that will cause some trouble and cost time and money.
 
-Some anti-patterns can start as a viable design pattern, but through the development of the project it become a anti-pattern. For instance, **God Class**.
-
-The **God Class** is a well known anti-patterns and it is a class that handles many responsibilities, other classes are in some kind of relation to it. It is the class that knows and manages everything. On the other hand, it is the class that broke the application every time someone touch it.
+Some anti-patterns can start as a viable design pattern, but through the development of the project it become a anti-pattern. For instance, **God Class**. **God Class** is a well known anti-patterns and it is a class that handles many responsibilities, other classes are in some kind of relation to it. It is the class that knows and manages everything. On the other hand, it is the class that broke the application every time someone touch it.
 
 **The best way to solve that anti-pattern is segregate the responsibilities through multiple small classes.**
 
@@ -507,7 +505,7 @@ Using the View Model pattern helps us follow the SOLID principles in the followi
 
 In summary, view model helps to decouple the model from the presentation. Then, the view has only one responsibility, which is display the UI.
 
-## MVC pattern for Web APIs
+## Section 3: MVC pattern for Web APIs
 
 ### An overview of REST
 
@@ -580,7 +578,7 @@ With a status code, the endpoint can tell the client the state of the operations
 By adding more headers, client and endpoint can add more metadata to the request or response;
 By adding versioning, the endpoint can evolve without breaking existing clients while giving options to consumers about the version they want to consume.
 
-## Model View Controller design pattern
+## Section 4: Model View Controller design pattern
 
 Good reasons to implement web APIs
 
@@ -602,7 +600,7 @@ Three single responsibilities:
 * view: it is to present a model to a user
 * controller: it is the key component of MVC. It plays the coordinator role between a request from a user to its response. The code of a controller should remain minimal and should not include complex logic or manipulation. The controller's primary responsibility is to handle a request and dispatch a response. **It is an HTTP bridge**
 
-## Anatomy of ASP.NET Core Web APIs
+## Section 5: Anatomy of ASP.NET Core Web APIs
 
 To generate a new web api use the command dotnet new webapi
 
@@ -702,7 +700,7 @@ An API contract is the definition of a web API, because a consumer should know h
 
 A contract, from dev perspective, is a model associated with a URI and an HTTP method.
 
-## Understanding the Strategy, abstract factory, and singleton design patterns
+## Section 6: Understanding the Strategy, abstract factory, and singleton design patterns
 
 ### strategy design pattern
 
@@ -801,3 +799,34 @@ method.
     * L: Singleton does not violates that principle because there isn't inheritance directly involved.
     * I: There is no interface involved, so it is violated.
     * D: The singleton class has a rock-solid hold on itself. It also suggests using its static property (or method) directly without using an abstraction, breaking the DIP with a sledgehammer.
+
+## Section 7: Deep Dive into Dependency Injection
+
+### What is dependency injection?
+
+DI is a way to apply Inversion of Control principle, which means, in a broader sense, the D from SOLID, that is, dependency inversion principle.
+
+The basic idea is move the creation of dependencies from the objects themselves to the program's entry point. For that the interfaces are used.
+
+For example: an object should not know about a specific object B that it is using. Rather, A should use, and consequently know, an interface I, which is implemented by B, and B should be resolved and inject at runtime.
+
+Let’s decompose this:
+* Object A should depend on interface I instead of concretion B .
+* Instance B , injected into A , should be resolved at runtime by the IoC container.
+* A should not be aware of the existence of B .
+* A should not control the lifetime of B.
+
+### Object Lifetime
+
+* Transient: The container creates a new object every time you ask for one; For instance: services.AddTransient<ISomeService, SomeService>()
+* Scoped: The container creates an object per HTTP request and passes that object around to all other objects that want to use it. For instance, services.AddScoped<ISomeService, SomeService>()
+Singleton: The container creates a single instance of that dependency and always passes that unique object araound. For instance, services.AddSingleton<ISomeService, SomeService>()
+
+### New keyword and Freak Control Smell Code
+
+What is the problem with the new keywork? In the context of dependency injection, the new keyword brings a question: the creation of the object should be done here? Or, to manage the dependency, is it necessary a container to handle it and the dependency must be injected?
+
+There're two scenarios:
+
+* stable dependencies, as the name suggest, are dependencies that not break the application when a new version is released, for they use a deterministic code, a.k.a. Liskov Substituition Principle (LSP). Speaking from the perspective of .NET, data structures, data transfer objects (DTO), List<T>, elements that are part of the .NET could be considered stable dependencies. 
+* volatile dependencies are dependencies that **can change**, **behaviors that could be swapped**, or elements you may want to extend, basically, **most of the classes you create for your programs such as data access and business logic classes**. These are the dependencies that you should no longer instantiate using the new keyword. The primary way to break the tight coupling between implementations is **to rely on interfaces instead**.
