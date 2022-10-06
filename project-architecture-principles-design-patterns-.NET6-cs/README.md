@@ -830,3 +830,18 @@ There're two scenarios:
 
 * stable dependencies, as the name suggest, are dependencies that not break the application when a new version is released, for they use a deterministic code, a.k.a. Liskov Substituition Principle (LSP). Speaking from the perspective of .NET, data structures, data transfer objects (DTO), List<T>, elements that are part of the .NET could be considered stable dependencies. 
 * volatile dependencies are dependencies that **can change**, **behaviors that could be swapped**, or elements you may want to extend, basically, **most of the classes you create for your programs such as data access and business logic classes**. These are the dependencies that you should no longer instantiate using the new keyword. The primary way to break the tight coupling between implementations is **to rely on interfaces instead**.
+
+**When in doubt, inject the dependency instead of using the new keyword**
+
+### Strategy Pattern
+
+Strategy pattern is a way to compose complex object trees using dependency injection to dynamically create those instances.
+
+Strategy pattern is a behavioral pattern through which is possible compose object trees at runtime, giving flexibility and control over objects' behavior. That pattern call the Composition over Inheritance principle.
+
+There're three common ways to inject dependency into objects:
+
+* constructor injection: injecting dependencies into the constructor as parameters, and is useful for injecting required dependencies.
+* property injection: is useful to inject optional dependencies into properties.
+* method injection: is also used to inject optional dependencies into classes 
+
