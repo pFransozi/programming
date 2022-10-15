@@ -1,14 +1,53 @@
-use std::{io, fmt};
+use std::{io};
 
 fn main() {
 
     println!("Hello, world! Basics on Rust from Rust Essential Training eLearning LinkedIn.");
-    var_scope_basic_example();  
-    formatting_basic_example();
-    math_basic_operators();
-    input_basic_example();
-    bitwise_basic_example();
+    // var_scope_basic_example();  
+    // formatting_basic_example();
+    // math_basic_operators();
+    // input_basic_example();
+    // bitwise_basic_example();
+    compound_data_types();
 
+
+}
+
+fn compound_data_types()
+{
+    let mut letters = ['A', 'B', 'C'];
+    let first_letter = letters[0];
+
+    println!("The first letter is {}", first_letter);
+    println!("The second letter is {}", letters[1]);
+
+    letters[0] = 'Z';
+    println!("The new first letter is {}", letters[0]);
+
+    let numbers: [i32; 5];
+    numbers = [0; 5];
+    let index:usize = numbers.len();
+    println!("The array len is {}", index);
+    println!("The fourth number is {}", numbers[index -1 ]);
+
+    println!("===============================================================");
+
+    let parking_lot = [[1,2,3], [4,5,6]];
+
+    let get_a_car = parking_lot[0][2];
+
+    let garage: [[[i32; 100]; 10]; 5];
+    let garage1 = [[[0; 100]; 10]; 5];
+
+
+    let stuff: (u8, f32, char) = (10, 3.14, 'x');
+    let first_item = stuff.0;
+    println!("The value of the first item is {}", first_item);
+
+    let (a, b, c) = stuff;
+    println!("A is {}", a);
+    println!("B is {}", b);
+    println!("C is {}", c);
 
 }
 
