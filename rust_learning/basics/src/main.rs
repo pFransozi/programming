@@ -3,18 +3,95 @@ use std::{io};
 fn main() {
 
     println!("Hello, world! Basics on Rust from Rust Essential Training eLearning LinkedIn.");
-    // var_scope_basic_example();  
+    //variables();
+    // var_scope_basic_example();
+    var_scope_basic_example_1();
+    var_scope_basic_example_2(); 
     // formatting_basic_example();
     // math_basic_operators();
     // input_basic_example();
     // bitwise_basic_example();
-    compound_data_types();
+    //compound_data_types();
 
 
 }
 
-fn compound_data_types()
-{
+fn variables(){
+    /*
+        a variable can be used only if it has been initialized.
+        if a variable is used but not initialized, a error ir
+        throw. Nut if not used, just a warning.
+
+        let var_name allow to set a value just at the initialize
+        moment. Use mut keyword to mark a variable as mutable.
+    */
+    let mut x: i32 = 0;
+    let y: i32 = 1;
+
+    assert_eq!(x, 0);
+    x += 1;
+    assert_eq!(x, 1);
+    assert_eq!(y, 1);
+
+    println!("Success!")
+    
+    
+}
+
+fn var_scope_basic_example(){
+    //this var lives in the var_scope_basic_example function();
+    let outer_var = 112;
+    println!("Outer var in the main function = {}", outer_var);
+    
+    //this is a small block, scope, inside the var_scope_basic_example function()
+    {
+        println!("Outer var inside a restrict scope {}", outer_var);
+
+        //this var only exists inside the scope.
+        let inner_var = 213;
+        let outer_var = 100;
+        println!("Inner var inside a restrict scope  = {}", inner_var);
+        //it is possible access outer var.
+        println!("Outer var inside a restrict scope before changed from 112 to 100 = {}", outer_var);
+    }//end block
+
+    println!("Outer var has been changed inside a restrict scope, and now out of the restrict scope, the value return");
+    println!("Outer var in the main function = {}", outer_var);
+
+    //but the it is not possible access inside the restrict scope.
+    //println!("inner var out of the block = {}", inner_var);
+}
+
+fn var_scope_basic_example_1(){
+    let x: i32 = 5;
+
+    {
+        let x:i32 = 12;
+        assert_eq!(x, 12);
+    }
+
+    assert_eq!(x, 5);
+    let x = 42;
+    println!("{x}");
+}
+
+fn var_scope_basic_example_2() {
+    
+    let mut x:i32;
+    x = 7;
+
+    // shadowing and re-binding
+    //let x = x;
+    x += 3;
+
+    let y =3;
+    let y = "I can also be bound to text!";
+    println!("Success");
+
+}
+
+
+fn compound_data_types(){
     let mut letters = ['A', 'B', 'C'];
     let first_letter = letters[0];
 
@@ -51,34 +128,8 @@ fn compound_data_types()
 
 }
 
-fn var_scope_basic_example()
-{
-    //this var lives in the var_scope_basic_example function();
-    let outer_var = 112;
 
-    println!("Outer var in the main function = {}", outer_var);
-    
-    //this is a small block, scope, inside the var_scope_basic_example function()
-    {
-        println!("Outer var inside a restrict scope {}", outer_var);
-
-        //this var only exists inside the scope.
-        let inner_var = 213;
-        let outer_var = 100;
-        println!("Inner var inside a restrict scope  = {}", inner_var);
-        //it is possible access outer var.
-        println!("Outer var inside a restrict scope before changed from 112 to 100 = {}", outer_var);
-    }//end block
-
-    println!("Outer var has been changed inside a restrict scope, and now out of the restrict scope, the value return");
-    println!("Outer var in the main function = {}", outer_var);
-
-    //but the it is not possible access inside the restrict scope.
-    //println!("inner var out of the block = {}", inner_var);
-}
-
-fn bitwise_basic_example()
-{
+fn bitwise_basic_example() {
 
     let mut bin = 0b1010_1111u8; // a byte
     let dec_to_bin = 3;
@@ -112,8 +163,7 @@ fn bitwise_basic_example()
 
 }
 
-fn formatting_basic_example()
-{
+fn formatting_basic_example() {
     println!("==================================================================");
     println!("Using println format.");
     println!("{} days", 32);
@@ -236,8 +286,7 @@ fn formatting_basic_example()
 
 }
 
-fn input_basic_example()
-{
+fn input_basic_example() {
     println!("Guess the number!");
     println!("Input your guess: ");
 
@@ -250,8 +299,7 @@ fn input_basic_example()
     println!("You guessed: {guess}");
 }
 
-fn math_basic_operators()
-{
+fn math_basic_operators() {
     println!("Math operators");
 
     let mut a = 7;
